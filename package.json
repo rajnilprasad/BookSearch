@@ -1,5 +1,6 @@
 {
   "name": "mern",
+  "engines": {"node": "12.16.1"},
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -10,8 +11,8 @@
     "client": "cd client && npm run start",
     "seed": "node scripts/seedDB.js",
     "install": "cd client && npm install",
-    "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run build"
+   
+    "heroku-postbuild": "cd client && npm run build"
   },
   "author": "",
   "license": "ISC",
