@@ -1,7 +1,9 @@
 {
   "name": "mern",
-  "engines": {"node": "12.16.1"},
-  "version": "1.0.0",
+  "engines": {
+    "node": "12.16.1"
+  },
+  "version": "1.1.0",
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -10,9 +12,9 @@
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "client": "cd client && npm run start",
     "seed": "node scripts/seedDB.js",
-    
+    "install": "cd client && npm install",
     "build": "npm install",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm run build"
   },
   "author": "",
   "license": "ISC",
