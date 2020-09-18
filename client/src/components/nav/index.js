@@ -1,29 +1,77 @@
-import React from 'react';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import "./style.css";
 
+class Nav extends Component {
+  state = {
+    open: false,
+    width: window.innerWidth
+  };
 
-function Nav() {
+  updateWidth = () => {
+    const newState = { width: window.innerWidth };
+
+    if (this.state.open && newState.width > 991) {
+      newState.open = false;
+    }
+
+    this.setState(newState);
+  };
+
+  toggleNav = () => {
+    this.setState({ open: !this.state.open });
+  };
+
+  componentDidMount() {
+    window.addEventListener("resize", this.updateWidth);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWidth);
+  }
+
+  render() {
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-dark text-white">
-            <a className="navbar-brand text-light" href="/">Book Search</a>
-            <button className="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav mr-auto">
-                    <li className="nav-item active">
-                        <a className="nav-link text-light" href="/">Search <span className="sr-only">(current)</span></a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link text-light" href="/saved">Saved</a>
-                    </li>
-
-
-                </ul>
-
-            </div>
-        </nav>
-    )
+      <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
+        <Link className="navbar-brand" to="/">
+          Google Books
+        </Link>
+        <button
+          onClick={this.toggleNav}
+          className="navbar-toggler"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+        <div className={`${this.state.open ? "" : "collapse "}navbar-collapse`} id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link
+                onClick={this.toggleNav}
+                className={window.location.pathname === "/" ? "nav-link active" : "nav-link"}
+                to="/"
+              >
+                Search
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                onClick={this.toggleNav}
+                className={window.location.pathname === "/saved" ? "nav-link active" : "nav-link"}
+                to="/saved"
+              >
+                Saved
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    );
+  }
 }
 
 export default Nav;
